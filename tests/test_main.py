@@ -41,10 +41,12 @@ def test_generate_emojis(monkeypatch: MonkeyPatch):
 
 
 def test_value_for_progress():
-    with assume: assert value_for_progress(0 / 3, 4, 0, 4) == 0
-    with assume: assert value_for_progress(1 / 3, 4, 0, 4) == 1
-    with assume: assert value_for_progress(2 / 3, 4, 0, 4) == 2
-    with assume: assert value_for_progress(3 / 3, 4, 0, 4) == 4
+    assert [
+        value_for_progress(0 / 3, 4, 0, 4),
+        value_for_progress(1 / 3, 4, 0, 4),
+        value_for_progress(2 / 3, 4, 0, 4),
+        value_for_progress(3 / 3, 4, 0, 4),
+    ] == [0, 1, 2, 4]
 
 
 def test_enumerate_with_progress():
