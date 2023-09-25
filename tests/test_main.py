@@ -10,11 +10,11 @@ from aneg.main import generate_emojis, value_for_progress, enumerate_with_progre
 
 
 def test_square_range():
-    D = Decimal
-    with assume: assert list(main.square_range(D(1), D(2))) == [1, 2]
-    with assume: assert list(main.square_range(D(1), D(4))) == [1, 2, 4]
-    with assume: assert list(main.square_range(D("0.5"), D(4))) == [0.5, 1, 2, 4]
-    with assume: assert list(main.square_range(D("0.25"), D(4))) == [0.25, 0.5, 1, 2, 4]
+    d = Decimal
+    with assume: assert list(main.square_range(d(1), d(2))) == [1, 2]
+    with assume: assert list(main.square_range(d(1), d(4))) == [1, 2, 4]
+    with assume: assert list(main.square_range(d("0.5"), d(4))) == [0.5, 1, 2, 4]
+    with assume: assert list(main.square_range(d("0.25"), d(4))) == [0.25, 0.5, 1, 2, 4]
 
 
 def test_generate_emoji(tmp_path):
@@ -24,6 +24,11 @@ def test_generate_emoji(tmp_path):
 
 
 def test_generate_emojis(monkeypatch: MonkeyPatch):
+    monkeypatch.setattr(
+        main, "enumerate_with_progress",
+        lambda numbers:
+        [(None, number) for number in numbers]
+    )
     monkeypatch.setattr(
         main, "generate_emoji",
         lambda number, progress, output_directory="output":
@@ -51,19 +56,19 @@ def test_value_for_progress():
 
 def test_enumerate_with_progress():
     with assume: assert list(enumerate_with_progress([
-        1,
-        11,
-        111,
+        Decimal(1),
+        Decimal(11),
+        Decimal(111),
     ])) == [
         (0, 1),
         (1/2, 11),
         (1, 111),
     ]
     with assume: assert list(enumerate_with_progress([
-        2,
-        22,
-        222,
-        2222,
+        Decimal(2),
+        Decimal(22),
+        Decimal(222),
+        Decimal(2222),
     ])) == [
         (0, 2),
         (1/3, 22),

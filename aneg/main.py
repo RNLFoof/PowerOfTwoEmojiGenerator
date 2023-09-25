@@ -17,9 +17,11 @@ def generate_emoji(number: Decimal, progress: float, output_directory="output") 
 
 
 def generate_emojis(numbers: Sequence[Decimal], output_directory="output") -> Generator[str, None, None]:
-    ...
+    for progress, number in enumerate_with_progress(numbers):
+        yield generate_emoji(number, progress, output_directory)
 
-def value_for_progress(progress: float, number_of_values: int,  value_at_no_progress: float,
+
+def value_for_progress(progress: float, number_of_values: int, value_at_no_progress: float,
                        value_at_max_progress: float) -> float:
     # This is set up in a way that uses the sequence 0, 1, 2, 4... instead of the more consistent 0.5, 1, 2, 4...
     # But it ensures that both the lowest and highest provided values are both placed somewhere.
@@ -29,14 +31,17 @@ def value_for_progress(progress: float, number_of_values: int,  value_at_no_prog
     progress_delta = value_at_no_progress + value_at_max_progress
     at_nth_item = int(progress * (number_of_values - 1))
     return value_at_no_progress + (
-        progress_delta * (
-            (2 ** at_nth_item) /
-            (2 ** (number_of_values - 1))
+            progress_delta * (
+                (2 ** at_nth_item) /
+                (2 ** (number_of_values - 1)
+            )
         )
     )
 
-def enumerate_with_progress(numbers: list[float]) -> Generator[tuple[float, float], None, None]:
+
+def enumerate_with_progress(numbers: Sequence[Decimal]) -> Generator[tuple[float, Decimal], None, None]:
     ...
+
 
 def generate_parser() -> ArgumentParser:
     parser = ArgumentParser()
