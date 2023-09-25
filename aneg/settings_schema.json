@@ -1,0 +1,23 @@
+{
+    "properties": {
+        "size_multiplier_range": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+                {
+                    "type": "number"
+                },
+                {
+                    "type": "number"
+                }
+            ],
+            "title": "Size Multiplier Range",
+            "type": "array"
+        }
+    },
+    "required": [
+        "size_multiplier_range"
+    ],
+    "title": "Settings",
+    "type": "object"
+}
