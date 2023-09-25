@@ -29,11 +29,11 @@ def test_generate_emojis(monkeypatch: MonkeyPatch):
         lambda number, progress, output_directory="output":
         f"{output_directory}/{number}.png"
     )
-    assert generate_emojis([
+    assert list(generate_emojis([
         Decimal(1),
         Decimal(2),
         Decimal(3),
-    ]) == [
+    ])) == [
                "output/1.png",
                "output/2.png",
                "output/3.png",

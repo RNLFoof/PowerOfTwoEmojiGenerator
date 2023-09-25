@@ -16,7 +16,7 @@ def generate_emoji(number: Decimal, progress: float, output_directory="output") 
     ...
 
 
-def generate_emojis(numbers: Sequence[Decimal], output_directory="output") -> str:
+def generate_emojis(numbers: Sequence[Decimal], output_directory="output") -> Generator[str, None, None]:
     ...
 
 def value_for_progress(progress: float, number_of_values: int,  value_at_no_progress: float,
